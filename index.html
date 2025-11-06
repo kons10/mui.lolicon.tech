@@ -1,0 +1,56 @@
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <script type="importmap">
+    {
+      "imports": {
+        "@material/web/": "https://esm.run/@material/web/"
+      }
+    }
+  </script>
+  <script type="module">
+    import '@material/web/all.js';
+    import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
+
+    document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+
+    // **********************************************
+    // ここから、ポップアップの開閉制御ロジック
+    // **********************************************
+
+    window.addEventListener('load', () => {
+      const dialog = document.getElementById('dialog');
+      // ボタンも取得
+      const yesButton = document.getElementById('yes-btn');
+      const noButton = document.getElementById('no-btn');
+
+      if (yesButton) {
+        yesButton.addEventListener('click', () => {
+          window.location.href = 'yes.html';
+        });
+      }
+      if (noButton) {
+        noButton.addEventListener('click', () => {
+          window.location.href = 'no.html';
+        });
+      }
+
+      if (dialog) {
+        dialog.addEventListener('closed', async () => {
+          await dialog.show();
+        });
+      }
+    });
+
+  </script>
+</head>
+<body>
+
+<md-dialog open id="dialog">
+  <div slot="headline">あなたはロリコンですか？</div>
+  <div slot="actions">
+    <md-text-button id="no-btn">いいえ</md-text-button>
+    <md-text-button id="yes-btn">はい</md-text-button>
+  </div>
+</md-dialog>
+
+</body>
